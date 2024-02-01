@@ -51,7 +51,9 @@ return new class extends Migration
         });
 
         Schema::create('user_submissions',function(Blueprint $table){
-            $table -> foreignId('user_id')->constrained();
+            $table -> id();
+            $table -> foreign(['user_id','problem_detail_id'])
+            ->references(['user_id','problem_detail_id'])->on('users_problems');
             $table -> text('solution');
             $table -> int('score');
             $table -> text('details');
