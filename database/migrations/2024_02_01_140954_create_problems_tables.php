@@ -20,6 +20,12 @@ return new class extends Migration
             $table->string('title');
         });
 
+        Schema::create('subject_teacher',function(Blueprint $table){
+            $table->foreignId('subject_id')->constrained();
+            $table->foreignId('user_id')->constrained();
+            $table->primary(['subject_id','user_id']);
+        });
+
         Schema::create('topics',function(Blueprint $table){
             $table->id();
             $table->string('title');
@@ -29,33 +35,29 @@ return new class extends Migration
         Schema::create('problems',function(Blueprint $table){
             $table->id();
             $table->string('title');
+            $table->string('language');
             $table->foreignId('topic_id')->constrained();
             $table->string('difficulty');
             $table->text('description');
             $table->text('solution');
             $table->json('inputs');
-            $table->json('wildcard_ranges')->nullable();
+            $table->json('outputs');
         });
 
-        Schema::create('problem_details',function(Blueprint $table){
-            $table->id();
-            $table->foreignId('problem_id')->constrained();
-            $table->json('wildcards')->nullable();
-            $table->json('outputs')->nullable();
-        });
-
-        Schema::create('users_problems',function(Blueprint $table){
+        Schema::create('problem_user',function(Blueprint $table){
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('problem_detail_id')->constrained();
-            $table->primary(['user_id','problem_detail_id']);
+            $table->foreignId('problem_id')->constrained();
+            $table->primary(['user_id','problem_id']);
         });
 
         Schema::create('user_submissions',function(Blueprint $table){
             $table -> id();
-            $table -> foreign(['user_id','problem_detail_id'])
-            ->references(['user_id','problem_detail_id'])->on('users_problems');
+            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('problem_id')->unsigned();
+            $table -> foreign(['user_id','problem_id'])
+            ->references(['user_id','problem_id'])->on('problem_user');
             $table -> text('solution');
-            $table -> int('score');
+            $table -> tinyInteger('score');
             $table -> text('details');
         });
     }
@@ -65,6 +67,14 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('problems_tables');
+        Schema::dropIfExists('user_submissions');
+        Schema::dropIfExists('user_problems');
+        Schema::dropIfExists('teacher_subjects');
+        Schema::dropIfExists('problems');
+        Schema::dropIfExists('topics');
+        Schema::dropIfExists('subjects');
+        Schema::table('users',function(Blueprint $table){
+            $table->dropColumn('type');
+        });
     }
 };

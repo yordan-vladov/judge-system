@@ -1,7 +1,11 @@
 <?php
 
 use App\Http\Controllers\GoogleAuthController;
+use App\Http\Controllers\ProblemController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\TopicController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,10 +18,14 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::resource('subjects', SubjectController::class);
+Route::resource('topics', TopicController::class);
+Route::resource('problems', ProblemController::class);
+
 
 Route::get('/', function () {
     return view('welcome');
-});
+}); 
 
 Route::get('/dashboard', function () {
     return view('dashboard');

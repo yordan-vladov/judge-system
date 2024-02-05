@@ -17,3 +17,15 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::get('/token',function(){
+    echo csrf_token(); 
+});
+
+Route::post('/echo', function (Request $request) {
+    // Retrieve data from the request
+
+    // Echo the request data
+    echo json_encode(array("output" => ["3","5"]));
+});
