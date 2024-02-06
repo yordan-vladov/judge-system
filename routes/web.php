@@ -23,6 +23,7 @@ Route::resource('topics', TopicController::class);
 Route::resource('problems', ProblemController::class);
 
 
+
 Route::get('/', function () {
     return view('welcome');
 }); 
