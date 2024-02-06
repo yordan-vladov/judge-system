@@ -7,6 +7,7 @@ use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TopicController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AddUsers;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +23,8 @@ Route::resource('subjects', SubjectController::class);
 Route::resource('topics', TopicController::class);
 Route::resource('problems', ProblemController::class);
 
-
+Route::get('/list_users', [AddUsers::class, 'list_users']);
+Route::get('/add_user', [AddUsers::class, 'add_user']);
 
 Route::get('/', function () {
     return view('welcome');
