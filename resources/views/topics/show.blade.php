@@ -22,7 +22,7 @@
         <h1>{{ $topic->title }}</h1>
         <div class="w-100 d-flex justify-content-between">
             <h2>Problems</h2>
-            <a class="btn btn-small btn-success" href="{{ url('problems/create') . '?' . http_build_query(['topic_id' => $topic->id])}}">Add Topic</a>
+            <a class="btn btn-small btn-success" href="{{ url('problems/create') . '?' . http_build_query(['topic_id' => $topic->id])}}">Add Problem</a>
         </div>
         @foreach($topic->problems as $problem)
         <a href="{{ url('/problems/'. $problem->id) }}">

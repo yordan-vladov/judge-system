@@ -24,7 +24,7 @@
         <!-- if there are creation errors, they will show here -->
         {{ HTML::ul($errors->all()) }}
 
-        <form class="d-flex flex-column" action="{{ url('/problems') }}" method="POST">
+        <form class="d-flex flex-column" onsubmit="encodeSolution()" action="{{ url('/problems') }}" method="POST">
             @csrf
             <label for="title">Title:</label>
             <input type="text" id="title" name="title" value="">

@@ -26,7 +26,7 @@
 
         <p>{{ $problem->difficulty }}</p>
 
-        <p>{{ $problem->solution }}</p>
+        <code>{!! str_replace("\t",'&emsp;',nl2br($problem->solution)) !!}</code>
 
         <p>{{ $problem->wildcard_ranges }}</p>
     </div>

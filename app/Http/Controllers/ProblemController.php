@@ -44,16 +44,15 @@ class ProblemController extends Controller
             'inputs' => ['required']
         ]);
 
-        /*
-        $output = Http::post(url('/echo'),[
-            'lang' => $request->language,
-            'code' => base64_encode($request->solution),
-            'inputs' => $request->inputs,
-            '_token' => csrf_token()
-        ])['output'];
-        */
+        
+         $output = Http::post('http://127.0.0.1:3000/echo',[
+             'lang' => $request->language,
+             'code' => base64_encode($request->solution),
+             'inputs' => $request->inputs,
+             '_token' => csrf_token()
+         ])['output'];
 
-        $output = json_encode([3,5]);
+        //$output = json_encode([3,5]);
 
         Problem::create([
             'title' => $request->title,
@@ -63,7 +62,7 @@ class ProblemController extends Controller
             'description' => $request->description,
             'solution' => $request->solution,
             'inputs' => $request->inputs,
-            'outputs' => $output
+            'outputs' => json_encode($output)
         ]);
 
         return redirect('/topics/'.$request->topic_id);
