@@ -20,6 +20,18 @@ class ProfileController extends Controller
             'user' => $request->user(),
         ]);
     }
+    public function problems(Request $request):View
+    {
+        $user = $request->user();
+        return view('profile.problems',['problems' => $user->problems]);
+    }
+
+    public function showProblem(Request $request,int $id):View
+    {
+        $user = $request -> user();
+        $problem = $user -> problems() -> find($id);
+        return view('profile.show_problem',['problem' => $problem]);
+    }
 
     /**
      * Update the user's profile information.
@@ -36,6 +48,8 @@ class ProfileController extends Controller
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
+
+
 
     /**
      * Delete the user's account.

@@ -5,6 +5,7 @@ use App\Http\Controllers\ProblemController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TopicController;
+use App\Http\Controllers\UserSubmissionrController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,8 @@ use Illuminate\Support\Facades\Route;
 Route::resource('subjects', SubjectController::class);
 Route::resource('topics', TopicController::class);
 Route::resource('problems', ProblemController::class);
+Route::resource('submissions', UserSubmissionrController::class);
+
 
 
 Route::get('/', function () {
@@ -33,6 +36,8 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile/problems', [ProfileController::class, 'problems'])->name('user.problems');
+    Route::get('/profile/problems/{id}', [ProfileController::class, 'showProblem'])->name('user.problems/{id}');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
